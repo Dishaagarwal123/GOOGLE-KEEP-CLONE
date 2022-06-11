@@ -1,34 +1,40 @@
-class Note{
-    constructor(note){
-        this.note=note;
+class notes_class{
+    constructor(title,note){
+       this.title=title
+        this.note=note
     }
 }
-class Displaynote{
-    constructor(note){
-        this.note=note;
+class display{
+    constructor(notes){
+        this.notes=notes
+    }
+    addnote(){
+        const ul=document.getElementById('ul')
+        const data=document.createElement('li')
+        data.innerHTML=`<div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">${this.notes.title}</h5>
+          <p class="card-text">${this.notes.note}</p>
+          <a href="#" class="btn btn-primary">delete</a>
+        </div>
+      </div>`
+      ul.append(data)
+      console.log(data);
     }
 }
-addnote(){
-    const notes=document.getElementsByClassName('notes');
-    const data=document.createElement('form');
-    data.innerHTML = `<div>
-    <form>
-      <div class="mb-3">
-        <label for="note" class="form-label">note</label>
-        <input type="text" class="form-control" id="note" aria-describedby="emailHelp">
-        
-      </div>
-      
-      
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </div>`
+const form=document.getElementById('form'); 
 
-}
-const googlenote=document.getElementById('google_note');
-googlenote.addEventListener('submit',googlenotesubmit);
-function googlenotesubmit(e){
-e.preventDefault();
-console.log('submitted🎉');
-const note=document.getElementById('note').value;
+form.addEventListener('submit',notesubmit);
+
+
+function notesubmit(e){
+    e.preventDefault();
+    console.log('added');
+    const title=document.getElementById('title').value;
+    const note=document.getElementById('note').value;
+    const notes=new notes_class(title,note);
+    console.log(notes);
+    const displaynote=new display(notes);
+    // console.log(displaynote.addnote);
+    displaynote.addnote(notes);
 }
